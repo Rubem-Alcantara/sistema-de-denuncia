@@ -6,8 +6,11 @@ import {
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import SecurityIcon from '@mui/icons-material/Security';
+import { useNavigate } from 'react-router-dom';
 
 function DenunciaForm() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     descricao: '',
     empresaEnvolvida: '',
@@ -154,6 +157,18 @@ function DenunciaForm() {
             </Box>
           </form>
         )}
+
+        <Box mt={4} display="flex" justifyContent="center">
+            <Button 
+                variant="text" 
+                color="secondary" 
+                size="small" 
+                onClick={() => navigate('/login')}
+            >
+                Acesso Restrito (Admin)
+            </Button>
+        </Box>
+
       </Paper>
     </Container>
   );
