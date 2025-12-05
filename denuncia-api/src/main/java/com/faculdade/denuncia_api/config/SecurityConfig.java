@@ -22,24 +22,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configura o CORS
-                .csrf(csrf -> csrf.disable()) // Desabilita CSRF (Necessário para API REST)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configurando o CORS
+                .csrf(csrf -> csrf.disable()) // Desabilitando CSRF
                 .authorizeHttpRequests(auth -> auth
-                        // --- CORREÇÃO DO ERRO 401 ---
-                        // Libera o "aperto de mão" do navegador (OPTIONS) para qualquer rota
+
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Libera o envio de denúncias (Público)
                         .requestMatchers(HttpMethod.POST, "/api/denuncias").permitAll()
 
-                        // Outras rotas públicas
+                        .requestMatchers(HttpMethod.GET, "/api/denuncias/protocolo/**").permitAll()
+
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll() // Login
 
                         // Todo o resto exige autenticação
                         .anyRequest().authenticated()
                 )
-                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // Para o H2 funcionar
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -53,7 +52,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Libera especificamente o seu Frontend React
+        // Liberando o front
         configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));

@@ -30,6 +30,17 @@ public class Denuncia {
 
     private String status;
 
+    @Column(length = 2000)
+    private String respostaAuditoria;
+
+    public String getRespostaAuditoria() {
+        return respostaAuditoria;
+    }
+
+    public void setRespostaAuditoria(String respostaAuditoria) {
+        this.respostaAuditoria = respostaAuditoria;
+    }
+
     public Long getId() {
         return id;
     }

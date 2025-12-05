@@ -1,36 +1,50 @@
-import { useEffect } from 'react';
-import axios from 'axios';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
+
+// Importação das Telas da Versão 3.0
+import Home from './Home';
 import DenunciaForm from './DenunciaForm';
-import AdminPanel from './AdminPanel';
+import Acompanhar from './Acompanhar'; // A tela nova
 import Login from './Login';
-import PrivateRoute from './PrivateRoute';
+import AdminPanel from './AdminPanel';
+
+// Componente simples para Proteger Rota (Se não tiver token, manda pro login)
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/login" />;
+};
 
 function App() {
-  
-  // Isso garante que, se você der F5, o login não se perde
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = token;
-    }
-  }, []);
-
   return (
     <BrowserRouter>
+      {/* CssBaseline aplica correções globais do Material UI */}
+      <CssBaseline /> 
+      
       <Routes>
-        {/* Rota 1: O Formulário Público (Home) */}
-        <Route path="/" element={<DenunciaForm />} />
+        {/* Rota Pública: Página Inicial */}
+        <Route path="/" element={<Home />} />
         
-        {/* Rota 2: A Tela de Login */}
+        {/* Rota Pública: Criar Denúncia */}
+        <Route path="/nova-denuncia" element={<DenunciaForm />} />
+        
+        {/* Rota Pública: Consultar Status */}
+        <Route path="/acompanhar" element={<Acompanhar />} />
+        
+        {/* Rota Pública: Login Admin */}
         <Route path="/login" element={<Login />} />
+
+        {/* Rota Privada: Painel Administrativo */}
+        <Route 
+          path="/admin" 
+          element={
+            <PrivateRoute>
+              <AdminPanel />
+            </PrivateRoute>
+          } 
+        />
         
-        {/* Rota 3: O Painel (Protegido pelo PrivateRoute) */}
-        <Route path="/admin" element={
-          <PrivateRoute>
-            <AdminPanel />
-          </PrivateRoute>
-        } />
+        {/* Qualquer rota desconhecida volta para a Home */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 @Service
 public class DenunciaService {
@@ -75,5 +76,17 @@ public class DenunciaService {
         auditoriaRepository.save(log); // Salva o rastro
 
         return denunciaSalva;
+    }
+    public Optional<Denuncia> buscarPorProtocolo(String protocolo) {
+        return repository.findByProtocolo(protocolo);
+    }
+
+    public Denuncia salvarResposta(Long id, String resposta){
+        Denuncia denuncia = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Denúncia não encontrada"));
+
+        denuncia.setRespostaAuditoria(resposta);
+
+        return repository.save(denuncia);
     }
 }
