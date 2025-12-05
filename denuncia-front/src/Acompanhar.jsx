@@ -24,7 +24,6 @@ function Acompanhar() {
     setResultado(null);
 
     try {
-      // Ajuste a URL conforme seu backend (ex: GET /api/denuncias/protocolo/{xyz})
       const response = await axios.get(`http://localhost:8080/api/denuncias/protocolo/${protocolo}`);
       setResultado(response.data);
     } catch (error) {
@@ -97,7 +96,7 @@ function Acompanhar() {
         </Container>
       </Box>
 
-      {/* 2. Card Flutuante de Busca */}
+      {/* Card Flutuante de Busca */}
       <Container maxWidth="sm" sx={{ mt: -10, mb: 8, position: 'relative', zIndex: 10 }}>
         <Paper elevation={4} sx={{ p: 4, borderRadius: 4 }}>
           

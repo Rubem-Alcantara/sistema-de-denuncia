@@ -13,7 +13,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PendingIcon from '@mui/icons-material/Pending';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import RateReviewIcon from '@mui/icons-material/RateReview'; // Ícone para responder
+import RateReviewIcon from '@mui/icons-material/RateReview'; 
 import { useNavigate } from 'react-router-dom';
 
 function AdminPanel() {
@@ -84,10 +84,9 @@ function AdminPanel() {
 
       try {
           await axios.put(`http://localhost:8080/api/denuncias/${idParaResponder}/resposta`, respostaTexto, {
-              headers: { 'Content-Type': 'text/plain' } // Importante para enviar String pura
+              headers: { 'Content-Type': 'text/plain' } 
           });
           
-          // Feedback visual rápido
           carregarDados();
           handleFecharResposta();
       } catch (error) {
@@ -113,7 +112,7 @@ function AdminPanel() {
       background: 'linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)'
     }}>
       
-      {/* 1. Cabeçalho */}
+      {/* Cabeçalho */}
       <Box sx={{ 
         background: 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)',
         color: 'white', 
@@ -139,7 +138,7 @@ function AdminPanel() {
         </Container>
       </Box>
 
-      {/* 2. Tabela */}
+      {/* Tabela */}
       <Container maxWidth="xl" sx={{ mt: -10, mb: 8, flexGrow: 1, position: 'relative', zIndex: 10 }}>
         <Paper elevation={3} sx={{ p: 3, borderRadius: 4, bgcolor: 'white', overflow: 'hidden' }}>
           
@@ -210,14 +209,14 @@ function AdminPanel() {
         </Paper>
       </Container>
 
-      {/* --- MENU FLUTUANTE DE STATUS --- */}
+      {/* MENU  DE STATUS */}
       <Menu anchorEl={anchorEl} open={openMenu} onClose={handleMenuClose}>
         <MenuItem onClick={() => mudarStatus('PENDENTE')} dense><PendingIcon fontSize="small" color="warning" sx={{ mr: 1 }} /> Pendente</MenuItem>
         <MenuItem onClick={() => mudarStatus('EM ANALISE')} dense><AssignmentIcon fontSize="small" color="info" sx={{ mr: 1 }} /> Em Análise</MenuItem>
         <MenuItem onClick={() => mudarStatus('CONCLUIDA')} dense><CheckCircleIcon fontSize="small" color="success" sx={{ mr: 1 }} /> Concluir</MenuItem>
       </Menu>
 
-      {/* --- MODAL (DIALOG) DE RESPOSTA --- */}
+      {/* MODAL DE RESPOSTA */}
       <Dialog open={openDialog} onClose={handleFecharResposta} fullWidth maxWidth="sm">
           <DialogTitle sx={{ bgcolor: '#1a237e', color: 'white' }}>
               Responder Auditoria

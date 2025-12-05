@@ -19,7 +19,7 @@ function Login() {
     e.preventDefault();
     setErro('');
 
-    // Gera o token de autenticação (Basic Auth)
+    // Gera o token de autenticação
     const token = 'Basic ' + btoa(`${credenciais.login}:${credenciais.senha}`);
 
     try {
@@ -47,12 +47,12 @@ function Login() {
       background: 'linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)'
     }}>
       
-      {/* 1. Cabeçalho Padrão */}
+      {/* Cabeçalho Padrão */}
       <Box sx={{ 
         background: 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)',
         color: 'white', 
         pt: 8, 
-        pb: 15, // Espaço para o card subir
+        pb: 15, 
         px: 2,
         textAlign: 'center',
         borderBottomLeftRadius: { xs: '30px', md: '50% 40px' },
@@ -62,7 +62,7 @@ function Login() {
         zIndex: 1
       }}>
         
-        {/* Botão de Voltar (Canto Superior Direito) */}
+        {/* Botão de Voltar */}
         <Box sx={{ position: 'absolute', top: 20, right: 20 }}>
             <Button 
                 variant="outlined" 
@@ -93,7 +93,7 @@ function Login() {
         </Container>
       </Box>
 
-      {/* 2. Card de Login Flutuante */}
+      {/*Card de Login */}
       <Container maxWidth="xs" sx={{ mt: -10, zIndex: 10, position: 'relative' }}>
         <Paper 
             elevation={6} 

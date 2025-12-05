@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
-
-// Importação das Telas da Versão 3.0
 import Home from './Home';
 import DenunciaForm from './DenunciaForm';
 import Acompanhar from './Acompanhar'; // A tela nova
@@ -17,23 +15,18 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <BrowserRouter>
-      {/* CssBaseline aplica correções globais do Material UI */}
       <CssBaseline /> 
       
       <Routes>
-        {/* Rota Pública: Página Inicial */}
+        
         <Route path="/" element={<Home />} />
         
-        {/* Rota Pública: Criar Denúncia */}
         <Route path="/nova-denuncia" element={<DenunciaForm />} />
         
-        {/* Rota Pública: Consultar Status */}
         <Route path="/acompanhar" element={<Acompanhar />} />
         
-        {/* Rota Pública: Login Admin */}
         <Route path="/login" element={<Login />} />
 
-        {/* Rota Privada: Painel Administrativo */}
         <Route 
           path="/admin" 
           element={
@@ -43,7 +36,6 @@ function App() {
           } 
         />
         
-        {/* Qualquer rota desconhecida volta para a Home */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
